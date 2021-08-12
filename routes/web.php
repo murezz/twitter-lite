@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::view('/', 'welcome');
+
+Route::middleware('auth')->group(function () {
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::get('/profiles', function () {
-    return view('profiles');
-})->middleware(['auth'])->name('profiles');
 
 require __DIR__ . '/auth.php';
