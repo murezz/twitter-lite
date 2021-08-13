@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Status;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TimelineController extends Controller
 {
     public function index()
     {
-        $statuses = Status::where('user_id', Auth::user()->id)->get();
+
+        $statuses = Auth::user()->timeline();
         return view('timeline', compact('statuses'));
     }
 }
