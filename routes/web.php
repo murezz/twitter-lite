@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileInformationController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('timeline', [TimelineController::class, 'index'])->name('timeline');
+    Route::post('status', [StatusController::class, 'store'])->name('statuses.store');
 
-    Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
+    Route::get('profile/{user:username}', ProfileInformationController::class)->name('profile')->withoutMiddleware('auth');
 });
 
 

@@ -1,3 +1,3 @@
-<div class="rounded-xl shadow-sm p-5 bg-white">
+<div class="rounded-xl shadow p-5 bg-white">
     {{ $slot }}
 </div>

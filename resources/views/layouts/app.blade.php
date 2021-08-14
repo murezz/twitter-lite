@@ -21,21 +21,24 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-white">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
-        {{-- <header class="bg-white shadow">
+        @isset($header)
+        <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
-    </div>
-    </header> --}}
+            </div>
+        </header>
+        @endisset
 
-    <!-- Page Content -->
-    <main class="pt-8">
-        {{ $slot }}
-    </main>
+        <!-- Page Content -->
+        <main class="pt-8">
+            {{ $slot }}
+        </main>
     </div>
+    @include('layouts.footer')
 </body>
 
 </html>

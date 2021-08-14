@@ -3,10 +3,11 @@
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-7">
                 <x-card>
-                    <form action="" method="post">
+                    <form action="{{ route('statuses.store') }}" method="post">
+                        @csrf
                         <div class="flex">
                             <div class="flex-shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/150"
+                                <img class="h-10 w-10 rounded-full" src="{{ Auth::user()->gravatar() }}"
                                     alt="{{ Auth::user()->name }}">
                             </div>
                             <div class="w-full">
@@ -26,29 +27,9 @@
                         </div>
                     </form>
                 </x-card>
-                <div class="space-y-6 mt-5">
-                    <div class="space-y-5">
-                        @foreach ($statuses as $item)
-                        <x-card>
-                            <div class="flex">
-                                <div class="flex-shrink-0 mr-3">
-                                    <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/150"
-                                        alt="{{ $item->user->name }}">
-                                </div>
-                                <div>
-                                    <div class="font-semibold">
-                                        {{ $item->user->name }}
-                                    </div>
-                                    <div class="leading-relax">
-                                        {{ $item->body }}
-                                    </div>
-                                    <div class="text-sm text-gray-600">
-                                        {{ $item->created_at->diffForHumans() }}
-                                    </div>
-                                </div>
-                            </div>
-                        </x-card>
-                        @endforeach
+                <div class="space-y-6 my-5">
+                    <div class="space-y-3">
+                        <x-statuses :statuses="$statuses" />
                     </div>
                 </div>
             </div>
@@ -61,8 +42,8 @@
                         @foreach (Auth::user()->follows()->limit(5)->get() as $user)
                         <div class="flex items-center">
                             <div class="flex-shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/150"
-                                    alt="{{ $item->user->name }}">
+                                <img class="h-10 w-10 rounded-full" src="{{ $user->gravatar() }}"
+                                    alt="{{ $user->name }}">
                             </div>
                             <div>
                                 <div class="font-semibold">
