@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-container>
-        <div class="grid grid-cols-12 gap-6">
+        <div class="grid grid-cols-12 gap-6 md:auto-cols-min">
             <div class="col-span-7">
                 <x-card>
                     <form action="{{ route('statuses.store') }}" method="post">
@@ -33,31 +33,18 @@
                     </div>
                 </div>
             </div>
+            @if (Auth::user()->follows()->count())
             <div class="col-span-5">
                 <x-card>
                     <h1 class="font-semibold mb-5">
                         Recently Follow
                     </h1>
                     <div class="space-y-5">
-                        @foreach (Auth::user()->follows()->limit(5)->get() as $user)
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 mr-3">
-                                <img class="h-10 w-10 rounded-full" src="{{ $user->gravatar() }}"
-                                    alt="{{ $user->name }}">
-                            </div>
-                            <div>
-                                <div class="font-semibold">
-                                    {{ $user->name }}
-                                </div>
-                                <div class="text-sm text-gray-600">
-                                    {{ $user->pivot->created_at->diffForHumans() }}
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
+                        <x-following :users="Auth::user()->follows()->limit(5)->get()"></x-following>
                     </div>
                 </x-card>
             </div>
+            @endif
         </div>
     </x-container>
 </x-app-layout>
